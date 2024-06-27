@@ -7,16 +7,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "empresa")
+@Table(name = "cliente_empresa")
 @Builder
-public class EmpresaEntity {
+public class ClienteEmpresaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

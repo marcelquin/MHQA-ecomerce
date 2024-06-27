@@ -2,30 +2,30 @@ package App.Service;
 
 import App.DTO.EmpresaDTO;
 import App.DTO.EnderecoDTO;
+import App.Entity.ClienteEmpresaEntity;
 import App.Entity.ContatoEntity;
 import App.Entity.EmpresaEntity;
 import App.Entity.EnderecoEntity;
 import App.Exceptions.EntityNotFoundException;
 import App.Exceptions.NullargumentsException;
+import App.Repository.ClienteEmpresaRepository;
 import App.Repository.ContatoRepository;
-import App.Repository.EmpresaRepository;
 import App.Repository.EnderecoRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class EmpresaService {
+public class ClienteEmpresaService {
 
-    private final EmpresaRepository empresaRepository;
+    private final ClienteEmpresaRepository empresaRepository;
     private final EnderecoRepository enderecoRepository;
     private final ContatoRepository contatoRepository;
 
-    public EmpresaService(EmpresaRepository empresaRepository, EnderecoRepository enderecoRepository, ContatoRepository contatoRepository) {
+    public ClienteEmpresaService(ClienteEmpresaRepository empresaRepository, EnderecoRepository enderecoRepository, ContatoRepository contatoRepository) {
         this.empresaRepository = empresaRepository;
         this.enderecoRepository = enderecoRepository;
         this.contatoRepository = contatoRepository;
@@ -33,7 +33,7 @@ public class EmpresaService {
 
 
 
-    public ResponseEntity<List<EmpresaEntity>> ListarEmpresas()
+    public ResponseEntity<List<ClienteEmpresaEntity>> ListarClienteEmpresa()
     {
         try
         {
@@ -47,13 +47,13 @@ public class EmpresaService {
     }
 
 
-    public ResponseEntity<EmpresaDTO> BuscarEmpresaPorId(Long id)
+    public ResponseEntity<EmpresaDTO> BuscarClienteEmpresaPorId(Long id)
     {
         try
         {
             if(id != null)
             {
-                EmpresaEntity entity = empresaRepository.findById(id).orElseThrow(
+                ClienteEmpresaEntity entity = empresaRepository.findById(id).orElseThrow(
                         ()-> new EntityNotFoundException()
                 );
                 EmpresaDTO response = new EmpresaDTO(entity.getNome(),
@@ -82,7 +82,7 @@ public class EmpresaService {
         return null;
     }
 
-    public ResponseEntity<EmpresaDTO> NovaEmpresa(String nome,
+    public ResponseEntity<EmpresaDTO> NovaClienteEmpresa(String nome,
                                                   String razaoSocial,
                                                   String cnpj,
                                                   String areaAtuacao,
@@ -123,7 +123,7 @@ public class EmpresaService {
                 contato.setEmail(email);
                 contato.setTimeStamp(LocalDateTime.now());
 
-                EmpresaEntity entity = new EmpresaEntity();
+                ClienteEmpresaEntity entity = new ClienteEmpresaEntity();
                 entity.setNome(nome);
                 entity.setRazaoSocial(razaoSocial);
                 entity.setCnpj(cnpj);
@@ -161,7 +161,7 @@ public class EmpresaService {
     }
 
 
-    public ResponseEntity<EmpresaDTO> EditarEmpresa(Long id,
+    public ResponseEntity<EmpresaDTO> EditarClienteEmpresa(Long id,
                                                   String nome,
                                                   String razaoSocial,
                                                   String cnpj,
@@ -194,7 +194,7 @@ public class EmpresaService {
                telefone != null &&
                email != null)
             {
-                EmpresaEntity entity = empresaRepository.findById(id).orElseThrow(
+                ClienteEmpresaEntity entity = empresaRepository.findById(id).orElseThrow(
                         ()-> new EntityNotFoundException()
                 );
                 EnderecoEntity endereco = enderecoRepository.findById(entity.getEndereco().getId()).orElseThrow(
